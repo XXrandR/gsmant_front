@@ -14,7 +14,7 @@ interface DashboardContextType {
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
 
 export function DashboardProvider({ children }: { children: ReactNode }) {
-	const [activeModule, setActiveModule] = useState<ModuleKey>('Gestión de Neumáticos');
+	const [activeModule, setActiveModule] = useState<ModuleKey>('Inicio');
 	const [activePage, setActivePage] = useState('Mantenimiento de neumáticos');
 
 	return (

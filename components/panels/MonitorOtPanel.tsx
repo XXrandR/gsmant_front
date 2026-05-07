@@ -1,5 +1,4 @@
-// components/panels/MonitorOtPanel.tsx
-import { Card, CardHeader, Button, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip } from "@heroui/react";
+import { Card, CardHeader, Button, Table, Chip } from "@heroui/react";
 
 export function MonitorOtPanel() {
 	return (
@@ -11,43 +10,47 @@ export function MonitorOtPanel() {
 				</div>
 				<div className="flex gap-2">
 					<Button className="rounded-xl">Filtrar</Button>
-					<Button className="bg-brand-600 text-white rounded-xl">Generar OT</Button>
+					<Button className="bg-brand-600 text-white rounded-xl">Exportar estado OTs</Button>
 				</div>
 			</CardHeader>
 			<Card.Content className="p-6">
 				<div className="grid grid-cols-1 xl:grid-cols-[1.7fr_1fr] gap-6">
 					<Card className="border border-slate-200 overflow-hidden">
 						<Table aria-label="OTs table">
-							<TableHeader>
-								<TableColumn>ID OT</TableColumn>
-								<TableColumn>Vehículo</TableColumn>
-								<TableColumn>Tipo</TableColumn>
-								<TableColumn>Estado</TableColumn>
-								<TableColumn>Evidencia</TableColumn>
-							</TableHeader>
-							<TableBody>
-								<TableRow key="1">
-									<TableCell className="font-mono">#OT-2049</TableCell>
-									<TableCell>Bus-045</TableCell>
-									<TableCell>Preventivo</TableCell>
-									<TableCell><Chip color="warning" size="sm">En Proceso</Chip></TableCell>
-									<TableCell>2 fotos</TableCell>
-								</TableRow>
-								<TableRow key="2">
-									<TableCell className="font-mono">#OT-2050</TableCell>
-									<TableCell>Carga-012</TableCell>
-									<TableCell>Correctivo</TableCell>
-									<TableCell><Chip color="danger" size="sm">Retrasado</Chip></TableCell>
-									<TableCell>Pendiente</TableCell>
-								</TableRow>
-								<TableRow key="3">
-									<TableCell className="font-mono">#OT-2051</TableCell>
-									<TableCell>Bus-088</TableCell>
-									<TableCell>Lavado</TableCell>
-									<TableCell><Chip color="success" size="sm">Cerrado</Chip></TableCell>
-									<TableCell>1 foto</TableCell>
-								</TableRow>
-							</TableBody>
+							<Table.ScrollContainer>
+								<Table.Content aria-label="Team members" className="min-w-[600px]">
+									<Table.Header>
+										<Table.Column>ID OT</Table.Column>
+										<Table.Column>Vehículo</Table.Column>
+										<Table.Column>Tipo</Table.Column>
+										<Table.Column>Estado</Table.Column>
+										<Table.Column>Evidencia</Table.Column>
+									</Table.Header>
+									<Table.Body>
+										<Table.Row key="1">
+											<Table.Cell className="font-mono">#OT-2049</Table.Cell>
+											<Table.Cell>Bus-045</Table.Cell>
+											<Table.Cell>Preventivo</Table.Cell>
+											<Table.Cell><Chip color="warning" size="sm">En Proceso</Chip></Table.Cell>
+											<Table.Cell>2 fotos</Table.Cell>
+										</Table.Row>
+										<Table.Row key="2">
+											<Table.Cell className="font-mono">#OT-2050</Table.Cell>
+											<Table.Cell>Carga-012</Table.Cell>
+											<Table.Cell>Correctivo</Table.Cell>
+											<Table.Cell><Chip color="danger" size="sm">Retrasado</Chip></Table.Cell>
+											<Table.Cell>Pendiente</Table.Cell>
+										</Table.Row>
+										<Table.Row key="3">
+											<Table.Cell className="font-mono">#OT-2051</Table.Cell>
+											<Table.Cell>Bus-088</Table.Cell>
+											<Table.Cell>Lavado</Table.Cell>
+											<Table.Cell><Chip color="success" size="sm">Cerrado</Chip></Table.Cell>
+											<Table.Cell>1 foto</Table.Cell>
+										</Table.Row>
+									</Table.Body>
+								</Table.Content>
+							</Table.ScrollContainer>
 						</Table>
 					</Card>
 					<Card className="border border-slate-200 p-5 bg-slate-50">

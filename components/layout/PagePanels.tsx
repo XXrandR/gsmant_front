@@ -7,11 +7,13 @@ import { ReparacionNeumaticosPanel } from '../panels/ReparacionNeumaticosPanel';
 import { NotImplementedPanel } from '../panels/NotImplementedPanel';
 import { useDashboard } from '@/context/DashboardContext';
 import { getModuleByPage } from '@/data/modules';
+import { PlantillaLayout } from '../plantilla/PlantillaLayout';
 
 const implementedPanels: Record<string, React.FC> = {
 	'Mantenimiento de neumáticos': MantenimientoNeumaticosPanel,
 	'Monitor de Órdenes de Trabajo': MonitorOtPanel,
 	'Checklist': ChecklistPanel,
+	'Plantilla': PlantillaLayout,
 	'Indicador General': IndicadorGeneralPanel,
 	'Reparación de neumáticos (con reporte de vida/estado)': ReparacionNeumaticosPanel,
 };
