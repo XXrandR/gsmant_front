@@ -86,13 +86,8 @@ jobs:
         run: |
           cd C:\Web\GSMANT_FRONT
 
-          pm2 describe gsmant_front > $null 2>&1
-
-          if ($LASTEXITCODE -eq 0) {
-            pm2 restart gsmant_front
-          }
-          else {
-            pm2 start ecosystem.config.js
-          }
+          pm2 startOrRestart ecosystem.config.js
 
           pm2 save
+
+          exit 0
