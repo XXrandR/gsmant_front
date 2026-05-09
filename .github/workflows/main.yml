@@ -12,15 +12,35 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install dependencies
+      - name: Configure Node PATH
         shell: powershell
         run: |
-          & "C:\Program Files\nodejs\npm.cmd" ci
+          echo "C:\Program Files\nodejs" >> $env:GITHUB_PATH
+
+      - name: Verify
+        shell: powershell
+        run: |
+          node -v
+          npm -v
+
+      - name: Cleanup workspace
+        shell: powershell
+        run: |
+          if (Test-Path node_modules) {
+            Remove-Item node_modules -Recurse -Force
+          }
+
+          if (Test-Path .next) {
+            Remove-Item .next -Recurse -Force
+          }
+
+      - name: Install dependencies
+        shell: powershell
+        run: npm ci
 
       - name: Build
         shell: powershell
-        run: |
-          & "C:\Program Files\nodejs\npm.cmd" run build
+        run: npm run build
 
       - name: Deploy standalone build
         shell: powershell
