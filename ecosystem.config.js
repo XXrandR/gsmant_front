@@ -6,7 +6,7 @@ module.exports = {
       cwd: "C:/Web/GSMANT_FRONT",
       env: {
         NODE_ENV: "production",
-        PORT: 3000
+        PORT: 3012
       }
     }
   ]
