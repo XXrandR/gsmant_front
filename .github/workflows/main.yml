@@ -16,12 +16,14 @@ jobs:
         shell: powershell
         run: |
           echo "C:\Program Files\nodejs" >> $env:GITHUB_PATH
+          echo "C:\Users\Administrador\AppData\Roaming\npm" >> $env:GITHUB_PATH
 
       - name: Verify
         shell: powershell
         run: |
           node -v
           npm -v
+          pm2 -v
 
       - name: Cleanup workspace
         shell: powershell
@@ -45,29 +47,51 @@ jobs:
       - name: Deploy standalone build
         shell: powershell
         run: |
+
           robocopy `
             "${{ github.workspace }}\.next\standalone" `
             "C:\Web\GSMANT_FRONT" `
             /MIR
+
+          $code = $LASTEXITCODE
+          if ($code -gt 3) { exit $code }
 
           robocopy `
             "${{ github.workspace }}\public" `
             "C:\Web\GSMANT_FRONT\public" `
             /MIR
 
+          $code = $LASTEXITCODE
+          if ($code -gt 3) { exit $code }
+
           robocopy `
             "${{ github.workspace }}\.next\static" `
             "C:\Web\GSMANT_FRONT\.next\static" `
             /MIR
 
-          if ($LASTEXITCODE -le 3) {
-            exit 0
-          } else {
-            exit $LASTEXITCODE
-          }
+          $code = $LASTEXITCODE
+          if ($code -gt 3) { exit $code }
 
-      - name: Restart PM2
+          robocopy `
+            "${{ github.workspace }}" `
+            "C:\Web\GSMANT_FRONT" `
+            ecosystem.config.js
+
+          $code = $LASTEXITCODE
+          if ($code -gt 3) { exit $code }
+
+      - name: Start or Restart PM2
         shell: powershell
         run: |
           cd C:\Web\GSMANT_FRONT
-          pm2 restart gsmant_front
+
+          pm2 describe gsmant_front > $null 2>&1
+
+          if ($LASTEXITCODE -eq 0) {
+            pm2 restart gsmant_front
+          }
+          else {
+            pm2 start ecosystem.config.js
+          }
+
+          pm2 save
