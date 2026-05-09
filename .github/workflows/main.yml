@@ -91,3 +91,20 @@ jobs:
           pm2 save
 
           exit 0
+
+      - name: Cleanup runner workspace
+        shell: powershell
+        run: |
+          $workspace = "${{ github.workspace }}"
+          $expected = "C:\Users\Administrador\actions-runner\_work\gsmant_front\gsmant_front"
+
+          if ($workspace -ne $expected) {
+            Write-Error "Unexpected workspace path: $workspace"
+            exit 1
+          }
+
+          if (Test-Path $workspace) {
+            Get-ChildItem $workspace -Force | Remove-Item -Recurse -Force
+          }
+
+          exit 0
