@@ -59,7 +59,7 @@ jobs:
           robocopy `
             "${{ github.workspace }}\public" `
             "C:\Web\GSMANT_FRONT\public" `
-            /MIR
+            /MIR /R:3 /W:5
 
           $code = $LASTEXITCODE
           if ($code -gt 3) { exit $code }
@@ -67,7 +67,7 @@ jobs:
           robocopy `
             "${{ github.workspace }}\.next\static" `
             "C:\Web\GSMANT_FRONT\.next\static" `
-            /MIR
+            /MIR /R:3 /W:5
 
           $code = $LASTEXITCODE
           if ($code -gt 3) { exit $code }
@@ -79,6 +79,7 @@ jobs:
 
           $code = $LASTEXITCODE
           if ($code -gt 3) { exit $code }
+          exit 0
 
       - name: Start or Restart PM2
         shell: powershell
