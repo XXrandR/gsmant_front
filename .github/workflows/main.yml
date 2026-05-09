@@ -14,11 +14,13 @@ jobs:
 
       - name: Install dependencies
         shell: powershell
-        run: npm ci
+        run: |
+          & "C:\Program Files\nodejs\npm.cmd" ci
 
       - name: Build
         shell: powershell
-        run: npm run build
+        run: |
+          & "C:\Program Files\nodejs\npm.cmd" run build
 
       - name: Deploy standalone build
         shell: powershell
