@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "GSMANT PRO | Gestión integral de flota, neumáticos y mantenimiento",
+	title: "GSMANT",
 	description: "Plataforma central para gestión de flota, neumáticos y mantenimiento",
 };
 
