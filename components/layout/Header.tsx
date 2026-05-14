@@ -42,10 +42,17 @@ export function Header() {
 						<div className="flex items-center justify-between xl:hidden">
 							<div className="flex items-center gap-3">
 								<div className="w-11 h-11 rounded-2xl flex items-center justify-center shadow-lg shadow-slate-300/50">
-									<i className="fa-solid fa-truck-fast text-brand-500 text-lg" />
+									<img
+										src="/icon.png"
+										alt="GSMANT Logo"
+										className="w-11 h-11 object-contain"
+									/>
 								</div>
 								<div>
-									<h1 className="text-xl font-bold text-slate-950">
+									<h1
+										className="text-2xl tracking-wide text-slate-950"
+										style={{ fontFamily: 'Serpentine' }}
+									>
 										GSMANT
 									</h1>
 									<p className="text-xs text-slate-500">
@@ -154,10 +161,14 @@ export function Header() {
 						<div className="hidden xl:flex items-center gap-8 w-full">
 							<div className="flex items-center gap-4 shrink-0">
 								<div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg shadow-slate-300/50">
-									<i className="fa-solid fa-truck-fast text-brand-500 text-xl" />
+									<img
+										src="/icon.png"
+										alt="GSMANT Logo"
+										className="w-10 h-10 object-contain"
+									/>
 								</div>
 								<div>
-									<h1 className="text-2xl font-bold text-slate-950">
+									<h1 className="text-2xl font-bold text-slate-950" style={{ fontFamily: 'Serpentine' }}>
 										GSMANT
 									</h1>
 								</div>
