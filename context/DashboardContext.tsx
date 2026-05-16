@@ -1,6 +1,4 @@
-// context/DashboardContext.tsx
 'use client';
-
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { type ModuleKey } from '@/data/modules';
 
@@ -14,8 +12,8 @@ interface DashboardContextType {
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
 
 export function DashboardProvider({ children }: { children: ReactNode }) {
-	const [activeModule, setActiveModule] = useState<ModuleKey>('Inicio');
-	const [activePage, setActivePage] = useState('Indicador General');
+	const [activeModule, setActiveModule] = useState<ModuleKey>('inicio');
+	const [activePage, setActivePage] = useState('indicador-general');
 
 	return (
 		<DashboardContext.Provider value={{ activeModule, activePage, setActiveModule, setActivePage }}>

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useDashboard } from '@/context/DashboardContext';
 import { modules, type ModuleKey } from '@/data/modules';
+import Link from 'next/link'
 
 import {
 	Dropdown,
@@ -16,12 +17,11 @@ import {
 	ChevronRight,
 } from "@gravity-ui/icons";
 import { Grid } from 'lucide-react';
+import { HeaderUserSection } from './HeaderUserSection';
 
 export function Header() {
 	const { activeModule, activePage, setActiveModule, setActivePage, } = useDashboard();
-
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-
 	const handleSelectionChange = (
 		page: string,
 		moduleKey: ModuleKey,
@@ -30,7 +30,6 @@ export function Header() {
 		setActivePage(page);
 		setIsMenuOpen(false);
 	};
-
 	const activeModuleData = modules.find((m) => m.key === activeModule,);
 
 	return (
@@ -110,33 +109,33 @@ export function Header() {
 																{module.name}
 															</p>
 														</div>
+
 														<div className="flex flex-col gap-1">
 															{module.pages.map((page) => {
-																const isActive =
-																	activePage === page;
+																const isActive = activePage === page.key && activeModule === module.key;
 																return (
-																	<button
-																		key={page}
-																		type="button"
+																	<Link
+																		key={page.key}
+																		href={`/dashboard/${module.key}/${page.key}`}
 																		onClick={() =>
 																			handleSelectionChange(
-																				page,
-																				module.key,
+																				page.key,
+																				module.key
 																			)
 																		}
-																		className={`flex items-center justify-between rounded-xl px-3 py-3 text-sm transition-all ${isActive
-																			? "bg-slate-950 text-white"
-																			: "text-slate-700 hover:bg-slate-100"
-																			}`}
+																		className={`flex items-center justify-between rounded-xl px-3 py-3 text-sm transition-all ${
+																			isActive
+																				? "bg-slate-950 text-white"
+																				: "text-slate-700 hover:bg-slate-100"
+																		}`}
 																	>
-																		<span>
-																			{page}
-																		</span>
+																		<span>{page.name}</span>
 																		<ChevronRight className="size-4 opacity-60" />
-																	</button>
+																	</Link>
 																);
 															})}
 														</div>
+
 													</div>
 												))}
 											</div>
@@ -198,16 +197,11 @@ export function Header() {
 													className="max-h-96 overflow-y-auto custom-scrollbar"
 												>
 													{module.pages.map((page) => (
-														<Dropdown.Item
-															key={page}
-															onPress={() =>
-																handleSelectionChange(
-																	page,
-																	module.key,
-																)
-															}
-														>
-															{page}
+														<Dropdown.Item key={page.key}>
+															<Link onClick={() => {handleSelectionChange(page.key,module.key)}} 
+																href={`/dashboard/${module.key}/${page.key}`}>
+																{page.name}
+															</Link>
 														</Dropdown.Item>
 													))}
 												</Dropdown.Menu>
@@ -222,7 +216,11 @@ export function Header() {
 									placeholder="Buscar placa, OT, neumático o módulo..."
 									variant="secondary"
 								/>
-								<div className="flex items-center justify-center sm:justify-start gap-3 rounded-2xl bg-slate-950 px-3 py-2 text-white shrink-0">
+								<HeaderUserSection
+									userName="Jefe de Taller"
+									userRole="Admin Flota Lima"
+								/>
+								{/* <div className="flex items-center justify-center sm:justify-start gap-3 rounded-2xl bg-slate-950 px-3 py-2 text-white shrink-0">
 									<Avatar className="w-9 h-9 rounded-xl bg-brand-600 text-white" />
 									<div className="leading-tight">
 										<p className="text-sm font-medium">
@@ -232,7 +230,7 @@ export function Header() {
 											Admin Flota Lima
 										</p>
 									</div>
-								</div>
+								</div> */}
 							</div>
 						</div>
 					</div>
