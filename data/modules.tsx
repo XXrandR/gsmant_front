@@ -93,8 +93,8 @@ export const modules: Module[] = [
 				name: 'Pedidos',
 			},
 			{
-				key: 'cierre-ots',
-				name: 'Cierre OTs',
+				key: 'orden-trabajo',
+				name: 'Orden de Trabajo',
 			},
 			{
 				key: 'anulacion',

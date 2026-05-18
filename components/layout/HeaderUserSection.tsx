@@ -1,34 +1,36 @@
 "use client";
-
-import { useSession } from "@/context/SessionContext";
 import {
 	Avatar,
 	Button,
 	Dropdown,
 	Label,
 } from "@heroui/react";
-
 import {
 	ChevronDown,
 	LogOut,
-	Settings,
 	User,
 } from "lucide-react";
+import { getProfile, logout } from '@/app/actions/auth';
+import { useEffect, useState } from "react";
 
-interface HeaderUserSectionProps {
-	userName: string;
-	userRole: string;
-}
+export function HeaderUserSection() {
+	const [isLoggingOut, setIsLoggingOut] = useState(false);
+	const closeSession = async () => {
+		if (isLoggingOut) return;
+		setIsLoggingOut(true);
+		await logout();
+	};
+	const [username, setUsername] = useState('');
+	const [role, setRole] = useState('');
 
-export function HeaderUserSection({
-	userName,
-	userRole,
-}: HeaderUserSectionProps) {
-    const session = useSession()
-
-    const closeSession = () => {
-        session.logout();
-    }
+	useEffect(() => {
+		const fetchUserInfo = async () => {
+			const result = await getProfile();
+			setUsername(result.user?.name || '')
+			setRole(result.user?.role || '')
+		}
+		fetchUserInfo();
+	}, []);
 
 	return (
 		<Dropdown>
@@ -37,15 +39,20 @@ export function HeaderUserSection({
 				className="h-auto w-full justify-between rounded-2xl bg-slate-950 px-3 py-2 text-white hover:bg-slate-900 sm:w-auto"
 			>
 				<div className="flex items-center gap-3">
-					<Avatar className="h-9 w-9 rounded-xl bg-brand-600 text-white" />
+					<Avatar
+						className="h-9 w-9 rounded-xl bg-brand-600 text-white">
+						<Avatar.Image
+							alt="Blue"
+							src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg"
+						/>
+					</Avatar>
 
 					<div className="text-left leading-tight">
 						<p className="text-sm font-medium">
-							{userName}
+							{username}
 						</p>
-
 						<p className="text-xs text-slate-300">
-							{userRole}
+							{role}
 						</p>
 					</div>
 				</div>
@@ -65,15 +72,20 @@ export function HeaderUserSection({
 						textValue="Perfil"
 					>
 						<div className="flex items-center gap-3 py-1">
-							<Avatar className="h-10 w-10 rounded-xl bg-brand-600 text-white" />
+							<Avatar
+								className="h-10 w-10 rounded-xl bg-brand-600 text-white">
+								<Avatar.Image
+									alt="Blue"
+									src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue.jpg"
+								/>
+							</Avatar>
 
 							<div className="leading-tight">
 								<p className="text-sm font-semibold">
-									{userName}
+									{username}
 								</p>
-
 								<p className="text-xs text-default-500">
-									{userRole}
+									{role}
 								</p>
 							</div>
 						</div>
@@ -85,22 +97,8 @@ export function HeaderUserSection({
 					>
 						<div className="flex items-center gap-2">
 							<User className="size-4" />
-
 							<Label>
 								Mi Perfil
-							</Label>
-						</div>
-					</Dropdown.Item>
-
-					<Dropdown.Item
-						id="settings"
-						textValue="Configuración"
-					>
-						<div className="flex items-center gap-2">
-							<Settings className="size-4" />
-
-							<Label>
-								Configuración
 							</Label>
 						</div>
 					</Dropdown.Item>
@@ -109,11 +107,11 @@ export function HeaderUserSection({
 						id="logout"
 						textValue="Cerrar sesión"
 						variant="danger"
-                        onClick={() => closeSession()}
+						onClick={closeSession}
+						isDisabled={isLoggingOut}
 					>
 						<div className="flex items-center gap-2 text-danger">
 							<LogOut className="size-4" />
-
 							<Label>
 								Cerrar Sesión
 							</Label>

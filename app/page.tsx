@@ -1,8 +1,5 @@
-// import { DashboardLayout } from "@/components/layout/DashboardLayout";
-import { DashboardProvider } from "@/context/DashboardContext";
+import { redirect } from 'next/navigation';
 
-export default function Home() {
-	return (
-		<div>hello</div>
-	);
+export default function HomePage() {
+	redirect('/dashboard/inicio/indicador-general');
 }
