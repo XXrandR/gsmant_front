@@ -2,10 +2,11 @@
 import { Button } from "@heroui/react";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.vfs;
+import type { TDocumentDefinitions } from "pdfmake/interfaces";
+(pdfMake as any).vfs = pdfFonts.vfs;
 export default function PedidosPage() {
   const generarPDF = () => {
-    const documentDefinition = {
+    const documentDefinition: TDocumentDefinitions = {
       content: [
         { text: "REPORTE DE PEDIDOS", style: "header" },
         { text: "Sistema GSMANT", margin: [0, 10, 0, 20] },
@@ -34,7 +35,7 @@ export default function PedidosPage() {
         {" "}
         Generación de reportes PDF usando pdfmake.{" "}
       </p>{" "}
-      <Button color="primary" onPress={generarPDF}>
+      <Button variant="primary" onPress={generarPDF}>
         {" "}
         Generar PDF{" "}
       </Button>{" "}
