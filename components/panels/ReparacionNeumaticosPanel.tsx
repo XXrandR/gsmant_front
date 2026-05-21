@@ -1,0 +1,1 @@
+// components/panels/ReparacionNeumaticosPanel.tsx
