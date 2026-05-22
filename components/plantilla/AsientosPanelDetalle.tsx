@@ -1,7 +1,7 @@
 export function AsientosPanelDetalle() {
   return (
     <div className="flex justify-center pt-6">
-      <div className="grid grid-cols-5 gap-3">
+      <div className="grid grid-cols-4 gap-3">
         {Array.from({
           length: 20,
         }).map((_, i) => (
