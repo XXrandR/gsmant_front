@@ -1,8 +1,6 @@
 "use client";
 import { AsientosPanel } from "@/components/plantilla/AsientosPanel";
 import { AsientosPanelDetalle } from "@/components/plantilla/AsientosPanelDetalle";
-import { ExteriorPanel } from "@/components/plantilla/ExteriorPanel";
-import { ExteriorPanelDetalle } from "@/components/plantilla/ExteriorPanelDetalle";
 import { LlantasPanel } from "@/components/plantilla/LlantasPanel";
 import { LlantasPanelDetalle } from "@/components/plantilla/LlantasPanelDetalle";
 import { VehicleSelector } from "@/components/plantilla/VehicleSelector";
@@ -10,6 +8,7 @@ import { VehicleTemplate } from "@/data/dtos/template";
 import { seatTypes, vehicleTemplatesMock } from "@/data/mockData";
 import { Button, Card, Tabs } from "@heroui/react";
 import { useMemo, useState } from "react";
+import SistemasTab from "@/components/plantilla/SistemasTab";
 
 export default function PlantillaLayout() {
   const [selectedTemplate, setSelectedTemplate] = useState<VehicleTemplate>(
@@ -86,7 +85,7 @@ export default function PlantillaLayout() {
 
                     <Tabs.Tab id="exterior">
                       <Tabs.Separator />
-                      Componentes
+                      Sistemas
                       <Tabs.Indicator />
                     </Tabs.Tab>
                   </Tabs.List>
@@ -102,7 +101,7 @@ export default function PlantillaLayout() {
                   </Tabs.Panel>
 
                   <Tabs.Panel id="exterior">
-                    <ExteriorPanel />
+                    <SistemasTab />
                   </Tabs.Panel>
                 </div>
               </Tabs>
