@@ -86,7 +86,7 @@ export default function PlantillaLayout() {
 
                     <Tabs.Tab id="exterior">
                       <Tabs.Separator />
-                      Exterior
+                      Componentes
                       <Tabs.Indicator />
                     </Tabs.Tab>
                   </Tabs.List>
@@ -109,17 +109,17 @@ export default function PlantillaLayout() {
             </div>
 
             {/* DETAIL PANEL */}
-            <div className="w-full shrink-0 xl:w-[280px]">
-              <Card className="h-full border border-default-200">
-                <Card.Content className="p-4">
-                  {selectedTab === "llantas" && <LlantasPanelDetalle />}
+            {selectedTab !== "exterior" && (
+              <div className="w-full shrink-0 xl:w-[280px]">
+                <Card className="h-full border border-default-200">
+                  <Card.Content className="p-4">
+                    {selectedTab === "llantas" && <LlantasPanelDetalle />}
 
-                  {selectedTab === "asientos" && <AsientosPanelDetalle />}
-
-                  {selectedTab === "exterior" && <ExteriorPanelDetalle />}
-                </Card.Content>
-              </Card>
-            </div>
+                    {selectedTab === "asientos" && <AsientosPanelDetalle />}
+                  </Card.Content>
+                </Card>
+              </div>
+            )}
           </div>
         </Card.Content>
       </Card>
