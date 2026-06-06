@@ -1,8 +1,8 @@
-// context/DashboardContext.tsx
 'use client';
-
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { type ModuleKey } from '@/data/modules';
+import { useAtom } from 'jotai';
+import { atomActiveModule, atomActivePage } from '@/data/local/AtomLocalStorage';
 
 interface DashboardContextType {
 	activeModule: ModuleKey;
@@ -14,8 +14,8 @@ interface DashboardContextType {
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
 
 export function DashboardProvider({ children }: { children: ReactNode }) {
-	const [activeModule, setActiveModule] = useState<ModuleKey>('Inicio');
-	const [activePage, setActivePage] = useState('Indicador General');
+	const [activeModule, setActiveModule] = useAtom<ModuleKey>(atomActiveModule);
+	const [activePage, setActivePage] = useAtom(atomActivePage);
 
 	return (
 		<DashboardContext.Provider value={{ activeModule, activePage, setActiveModule, setActivePage }}>

@@ -1,12 +1,5 @@
-'use client'
+import { redirect } from 'next/navigation';
 
-import { DashboardLayout } from "@/components/layout/DashboardLayout";
-import { DashboardProvider } from "@/context/DashboardContext";
-
-export default function Home() {
-	return (
-		<DashboardProvider>
-			<DashboardLayout />
-		</DashboardProvider>
-	);
+export default function HomePage() {
+	redirect('/dashboard/inicio/indicador-general');
 }

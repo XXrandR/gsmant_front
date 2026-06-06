@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useDashboard } from '@/context/DashboardContext';
 import { modules, type ModuleKey } from '@/data/modules';
-
+import Link from 'next/link'
 import {
 	Dropdown,
 	Button,
@@ -10,18 +10,16 @@ import {
 	Avatar,
 	Drawer,
 } from "@heroui/react";
-
 import {
 	Bars,
 	ChevronRight,
 } from "@gravity-ui/icons";
 import { Grid } from 'lucide-react';
+import { HeaderUserSection } from './HeaderUserSection';
 
 export function Header() {
 	const { activeModule, activePage, setActiveModule, setActivePage, } = useDashboard();
-
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-
 	const handleSelectionChange = (
 		page: string,
 		moduleKey: ModuleKey,
@@ -30,14 +28,18 @@ export function Header() {
 		setActivePage(page);
 		setIsMenuOpen(false);
 	};
-
-	const activeModuleData = modules.find((m) => m.key === activeModule,);
+	const activeModuleData = modules.find((m) => m.key === activeModule,) || {
+		key: 'inicio',
+		name: 'Inicio',
+		icon: 'fa-sliders',
+		pages: [ { key: 'indicador-general',name: 'Indicador General',},],};
+	const activeModulePageData = activeModuleData.pages.find((m) => m.key === activePage)
 
 	return (
 		<div>
 			<div className="absolute inset-x-0 top-0 h-20 pointer-events-none" />
 			<div className="px-3 sm:px-4 pt-3 sm:pt-4 pb-2">
-				<div className="glass-panel rounded-2xl border border-blue-400/50 shadow-lg shadow-slate-200/60 px-3 sm:px-4 py-3 sm:py-4">
+				<div className="glass-panel rounded-2xl border border-red-200/50 shadow-lg shadow-slate-200/60 px-3 sm:px-4 py-3 sm:py-4">
 					<div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
 						<div className="flex items-center justify-between xl:hidden">
 							<div className="flex items-center gap-3">
@@ -110,33 +112,33 @@ export function Header() {
 																{module.name}
 															</p>
 														</div>
+
 														<div className="flex flex-col gap-1">
 															{module.pages.map((page) => {
-																const isActive =
-																	activePage === page;
+																const isActive = activePage === page.key && activeModule === module.key;
 																return (
-																	<button
-																		key={page}
-																		type="button"
+																	<Link
+																		key={page.key}
+																		href={`/dashboard/${module.key}/${page.key}`}
 																		onClick={() =>
 																			handleSelectionChange(
-																				page,
-																				module.key,
+																				page.key,
+																				module.key
 																			)
 																		}
-																		className={`flex items-center justify-between rounded-xl px-3 py-3 text-sm transition-all ${isActive
-																			? "bg-slate-950 text-white"
-																			: "text-slate-700 hover:bg-slate-100"
-																			}`}
+																		className={`flex items-center justify-between rounded-xl px-3 py-3 text-sm transition-all ${
+																			isActive
+																				? "bg-slate-950 text-white"
+																				: "text-slate-700 hover:bg-slate-100"
+																		}`}
 																	>
-																		<span>
-																			{page}
-																		</span>
+																		<span>{page.name}</span>
 																		<ChevronRight className="size-4 opacity-60" />
-																	</button>
+																	</Link>
 																);
 															})}
 														</div>
+
 													</div>
 												))}
 											</div>
@@ -198,16 +200,11 @@ export function Header() {
 													className="max-h-96 overflow-y-auto custom-scrollbar"
 												>
 													{module.pages.map((page) => (
-														<Dropdown.Item
-															key={page}
-															onPress={() =>
-																handleSelectionChange(
-																	page,
-																	module.key,
-																)
-															}
-														>
-															{page}
+														<Dropdown.Item key={page.key}>
+															<Link onClick={() => {handleSelectionChange(page.key,module.key)}} 
+																href={`/dashboard/${module.key}/${page.key}`}>
+																{page.name}
+															</Link>
 														</Dropdown.Item>
 													))}
 												</Dropdown.Menu>
@@ -222,17 +219,7 @@ export function Header() {
 									placeholder="Buscar placa, OT, neumático o módulo..."
 									variant="secondary"
 								/>
-								<div className="flex items-center justify-center sm:justify-start gap-3 rounded-2xl bg-slate-950 px-3 py-2 text-white shrink-0">
-									<Avatar className="w-9 h-9 rounded-xl bg-brand-600 text-white" />
-									<div className="leading-tight">
-										<p className="text-sm font-medium">
-											Jefe de Taller
-										</p>
-										<p className="text-xs text-slate-300">
-											Admin Flota Lima
-										</p>
-									</div>
-								</div>
+								<HeaderUserSection />
 							</div>
 						</div>
 					</div>
@@ -250,7 +237,7 @@ export function Header() {
 					<i className="fa-solid fa-chevron-right mx-2 text-[10px]" />
 
 					<span className="font-semibold text-slate-800 whitespace-nowrap">
-						{activePage}
+						{activeModulePageData?.name || 'inicio'}
 					</span>
 				</div>
 			</div>

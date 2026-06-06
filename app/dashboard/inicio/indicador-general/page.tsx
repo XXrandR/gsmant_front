@@ -1,7 +1,6 @@
-// components/panels/IndicadorGeneralPanel.tsx
 import { Card, CardHeader } from "@heroui/react";
 
-export function IndicadorGeneralPanel() {
+export default function IndicadorGeneralPanel() {
 	return (
 		<Card className="border border-slate-200 shadow-sm">
 			<CardHeader className="px-6 py-5 border-b border-slate-200">
