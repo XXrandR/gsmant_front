@@ -60,11 +60,11 @@ export default function VehiculosPage() {
         </div>
 
         <div className="flex gap-3">
-          <Button radius="full" className="bg-slate-100 text-slate-700">
+          <Button className="bg-slate-100 text-slate-700">
             Exportar
           </Button>
 
-          <Button radius="full" className="bg-blue-500 text-white">
+          <Button className="bg-blue-500 text-white">
             + Nuevo Vehículo
           </Button>
         </div>
@@ -85,7 +85,7 @@ export default function VehiculosPage() {
               </p>
             </div>
 
-            <Input placeholder="Buscar placa o interno..." radius="lg" />
+            <Input placeholder="Buscar placa o interno..." />
 
             <div className="space-y-3 max-h-[650px] overflow-auto pr-2">
               {vehiculos.map((vehiculo) => (
@@ -124,7 +124,7 @@ export default function VehiculosPage() {
                             ? "warning"
                             : "danger"
                       }
-                      variant="flat"
+                      variant="soft"
                     >
                       {vehiculo.estado}
                     </Chip>
@@ -163,11 +163,11 @@ export default function VehiculosPage() {
                 </div>
 
                 <div className="flex gap-3">
-                  <Button radius="full" className="bg-slate-100 text-slate-700">
+                  <Button className="bg-slate-100 text-slate-700">
                     Editar
                   </Button>
 
-                  <Button radius="full" className="bg-red-500 text-white">
+                  <Button className="bg-red-500 text-white">
                     Desactivar
                   </Button>
                 </div>
@@ -223,7 +223,7 @@ export default function VehiculosPage() {
                   </p>
                 </div>
 
-                <Button radius="full" className="bg-blue-500 text-white">
+                <Button className="bg-blue-500 text-white">
                   Ver Plantilla
                 </Button>
               </div>

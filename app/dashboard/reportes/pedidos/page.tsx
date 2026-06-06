@@ -770,7 +770,7 @@ export default function OrdenTrabajoPage() {
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-bold">Orden de Trabajo</h1>
 
-      <Button color="primary" onPress={generarPDF}>
+      <Button onPress={generarPDF}>
         Generar PDF
       </Button>
     </div>
